@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sääsovellus</string>
+    <string name="weather_title">Sääsovellus</string>
+    <string name="sunny_description">Aurinkoista</string>
+    <string name="weather_today">Tänään on aurinkoista!</string>
+    <string name="temperature">Lämpötila: 25°C</string>
+    <string name="wind_speed">Tuulen nopeus: 5 m/s</string>
+    <string name="refresh_button">Päivitä</string>
+</resources>
