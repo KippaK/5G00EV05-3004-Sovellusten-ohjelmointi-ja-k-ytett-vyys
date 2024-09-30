@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Fuel Cost Calculator</string>
+    <string name="fuel_price">Fuel Price (€ per liter)</string>
+    <string name="fuel_consumption">Fuel Consumption (l/100km)</string>
+    <string name="distance">Distance (km)</string>
+    <string name="calculate">Calculate Cost</string>
+    <string name="total_cost">Total Cost: %.2f€</string>
+</resources>

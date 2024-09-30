@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Polttoaineen hintalaskuri</string>
+    <string name="fuel_price">Polttoaineen hinta (€ per litra)</string>
+    <string name="fuel_consumption">Auton kulutus (l/100km)</string>
+    <string name="distance">Matkan pituus (km)</string>
+    <string name="calculate">Laske hinta</string>
+    <string name="total_cost">Matkan hinta: %.2f €</string>
+</resources>
