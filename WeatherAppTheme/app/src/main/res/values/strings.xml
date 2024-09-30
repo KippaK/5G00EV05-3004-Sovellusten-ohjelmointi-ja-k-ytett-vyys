@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="weather_title">Weather App</string>
+    <string name="sunny_description">Sunny</string>
+    <string name="weather_today">It is sunny today!</string>
+    <string name="temperature">Temperature: 25°C</string>
+    <string name="wind_speed">Wind speed: 5 m/s</string>
+    <string name="refresh_button">Refresh</string>
+</resources>
