@@ -31,13 +31,15 @@ fun CommonIntent(context: Context) {
         verticalArrangement = Arrangement.Center
         ) {
         Spacer(modifier = Modifier.height(36.dp))
+
+        val googleUrl = "https://www.google.com"
         Button(
-            onClick = { openBrowser(context, "https://www.google.com") },
+            onClick = { openBrowser(context, googleUrl) },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer)
         ) {
             Text(
-                text = "Open Browser",
+                text = "Open $googleUrl in Browser",
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
@@ -63,14 +65,14 @@ fun CommonIntent(context: Context) {
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
-
+        val phoneNumber = "123456789"
         Button(
-            onClick = { dialPhoneNumber(context, "123456789") },
+            onClick = { dialPhoneNumber(context, phoneNumber) },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer)
         ) {
             Text(
-                text = "Dial",
+                text = "Dial $phoneNumber",
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
