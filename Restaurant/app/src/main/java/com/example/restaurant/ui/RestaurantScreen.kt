@@ -1,20 +1,23 @@
 package com.example.restaurant.ui
 
 import androidx.compose.foundation.background
-import com.example.restaurant.domain.model.Restaurant
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text2.input.TextObfuscationMode
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.restaurant.domain.model.Restaurant
 
 val restaurants = listOf(
     Restaurant("The Gourmet Kitchen", "123 Food St.", 4.5, "Italian"),
@@ -45,35 +48,24 @@ val restaurants = listOf(
 )
 
 @Composable
-fun RestaurantItem(restaurant: Restaurant) {
-    Column(
-        modifier = Modifier
-            .padding(8.dp)
-    ) {
-        Text(restaurant.name, style = MaterialTheme.typography.headlineMedium)
-        Text(
-            "Address: ${restaurant.address}",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Text(
-            "Rating: ${restaurant.rating}",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Text(
-            "Cuisine: ${restaurant.cuisine}",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground
-        )
+fun RestaurantApp() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "restaurantList") {
+        composable("restaurantList") { RestaurantScreen(navController) }
+        composable("restaurantDetails/{name}/{address}/{rating}/{cuisine}") { backStackEntry ->
+            val name = backStackEntry.arguments?.getString("name") ?: ""
+            val address = backStackEntry.arguments?.getString("address") ?: ""
+            val rating = backStackEntry.arguments?.getString("rating")?.toDouble() ?: 0.0
+            val cuisine = backStackEntry.arguments?.getString("cuisine") ?: ""
+            RestaurantDetailsScreen(name, address, rating, cuisine)
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RestaurantScreen() {
+fun RestaurantScreen(navController: NavController) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
-
     val filteredRestaurants = restaurants.filter {
         it.name.contains(searchQuery.text, ignoreCase = true)
     }
@@ -126,7 +118,11 @@ fun RestaurantScreen() {
 
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(filteredRestaurants) { restaurant ->
-                    RestaurantItem(restaurant)
+                    RestaurantItem(restaurant) {
+                        navController.navigate(
+                            "restaurantDetails/${restaurant.name}/${restaurant.address}/${restaurant.rating}/${restaurant.cuisine}"
+                        )
+                    }
                     Divider(color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f))
                 }
             }
@@ -134,8 +130,16 @@ fun RestaurantScreen() {
     }
 }
 
-@Preview
 @Composable
-fun PreviewRestaurantScreen() {
-    RestaurantScreen()
+fun RestaurantItem(restaurant: Restaurant, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable { onClick() }
+    ) {
+        Text(restaurant.name, style = MaterialTheme.typography.headlineMedium)
+        Text("Address: ${restaurant.address}", style = MaterialTheme.typography.bodySmall)
+        Text("Rating: ${restaurant.rating}", style = MaterialTheme.typography.bodySmall)
+        Text("Cuisine: ${restaurant.cuisine}", style = MaterialTheme.typography.bodySmall)
+    }
 }

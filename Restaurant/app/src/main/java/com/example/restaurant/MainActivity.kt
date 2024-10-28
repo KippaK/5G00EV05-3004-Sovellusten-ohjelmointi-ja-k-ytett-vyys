@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.restaurant.ui.PreviewRestaurantScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.restaurant.ui.RestaurantApp
 import com.example.restaurant.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,8 +13,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-           AppTheme {
-                PreviewRestaurantScreen()
+            AppTheme {
+                RestaurantApp()
             }
         }
     }
