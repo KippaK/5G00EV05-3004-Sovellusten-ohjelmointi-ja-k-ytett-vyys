@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.currencyexhangeview.ui.MainScreen
+import com.example.currencyexhangeview.ui.CurrencyExchangeView
+import com.example.currencyexhangeview.ui.CurrencyExchangeViewPreview
 import com.example.currencyexhangeview.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                MainScreen()
+                CurrencyExchangeViewPreview()
             }
         }
     }
