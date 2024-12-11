@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CurrencyExhangeView</string>
+    <string name="app_name">Valuuttamuunnin</string>
+    <string name="currency_exchange">Valuuttamuunnin</string>
+    <string name="from_currency">Valuustasta</string>
+    <string name="to_currency">Valuuttaan</string>
+    <string name="base_currency">Lähtövaluutta</string>
+    <string name="enter_amount">Syötä summa</string>
+    <string name="converted_amount">Muunnettu summa</string>
+    <string name="convert">Muunna</string>
+    <string name="rates_list">Kurssi lista</string>
 </resources>

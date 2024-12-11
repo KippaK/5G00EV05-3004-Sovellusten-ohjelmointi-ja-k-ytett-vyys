@@ -10,6 +10,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
@@ -20,17 +22,17 @@ fun DropdownMenuSelector(label: String, items: List<String>, selected: String, o
         Text(label)
         Box(modifier = Modifier.fillMaxWidth()) {
             TextButton(onClick = { expanded = true }) {
-                Text(selected.ifEmpty { "Select $label" })
+                Text(selected.ifEmpty { label })
             }
 
             DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                 items.forEach { item ->
-                    DropdownMenuItem(onClick = {
-                        onSelectedChange(item)
-                        expanded = false
-                    }) {
-                        Text(item)
-                    }
+                    DropdownMenuItem(
+                        text = { Text(item) },
+                        onClick = {
+                            onSelectedChange(item)
+                            expanded = false
+                        })
                 }
             }
         }

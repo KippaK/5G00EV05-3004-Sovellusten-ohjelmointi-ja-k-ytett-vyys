@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.currencyexhangeview"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.currencyexhangeview"
@@ -50,9 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.runtime.livedata)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

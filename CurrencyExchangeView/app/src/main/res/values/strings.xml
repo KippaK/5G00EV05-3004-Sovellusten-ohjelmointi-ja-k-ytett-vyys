@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">CurrencyExhangeView</string>
-
+    <string name="app_name">CurrencyExchangeView</string>
+    <string name="currency_exchange">Currency Exchange</string>
+    <string name="from_currency">From Currency</string>
+    <string name="to_currency">To Currency</string>
+    <string name="base_currency">Base Currency</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="converted_amount">Converted Amount</string>
+    <string name="convert">Convert</string>
+    <string name="rates_list">Rates List</string>
 </resources>
