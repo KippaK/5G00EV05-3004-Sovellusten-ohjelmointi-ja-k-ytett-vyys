@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CurrencyExchangeView</string>
+    <string name="app_name">CurrencyExchange</string>
     <string name="currency_exchange">Currency Exchange</string>
     <string name="from_currency">From Currency</string>
     <string name="to_currency">To Currency</string>
@@ -8,4 +8,9 @@
     <string name="converted_amount">Converted Amount</string>
     <string name="convert">Convert</string>
     <string name="rates_list">Rates List</string>
+    <string name="euro" translatable="false">Euro</string>
+    <string name="currency">Currency</string>
+    <string name="rate">Rate</string>
+    <string name="arrow_icon">Arrow Icon</string>
+    <string name="open_website">View more exchange rates at</string>
 </resources>

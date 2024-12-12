@@ -9,4 +9,8 @@
     <string name="converted_amount">Muunnettu summa</string>
     <string name="convert">Muunna</string>
     <string name="rates_list">Kurssi lista</string>
+    <string name="currency">Valuutta</string>
+    <string name="rate">Kurssi</string>
+    <string name="arrow_icon">Nuoli Iconi</string>
+    <string name="open_website">Selaa lisää kursseja</string>
 </resources>

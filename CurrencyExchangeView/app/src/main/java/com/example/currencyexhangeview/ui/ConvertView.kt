@@ -1,5 +1,8 @@
 package com.example.currencyexhangeview.ui
 
+import android.icu.text.DecimalFormat
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -7,14 +10,16 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.draw.clip
 import com.example.currencyexhangeview.viewmodel.CurrencyViewModel
-import com.example.currencyexhangeview.R
-
 
 @Composable
 fun ConvertView(viewModel: CurrencyViewModel) {
@@ -26,43 +31,89 @@ fun ConvertView(viewModel: CurrencyViewModel) {
     var amount by remember { mutableStateOf(TextFieldValue("")) }
     val convertedAmount = remember(fromCurrency, toCurrency, amount.text) {
         amount.text.toDoubleOrNull()?.let {
-            (exchangeRates[toCurrency] ?: 1.0) / (exchangeRates[fromCurrency] ?: 1.0) * it
+            val fromRate = (exchangeRates[fromCurrency] as? Number)?.toDouble() ?: 1.0
+            val toRate = (exchangeRates[toCurrency] as? Number)?.toDouble() ?: 1.0
+            (toRate / fromRate) * it
         }
     }
 
-    Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
-        DropdownMenuSelector(
-            label = stringResource(R.string.from_currency),
-            items = currencies.keys.toList(),
-            selected = fromCurrency,
-            onSelectedChange = { fromCurrency = it }
-        )
+    val decimalFormat = DecimalFormat("#,##0.##########")
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        DropdownMenuSelector(
-            label = stringResource(R.string.to_currency),
-            items = currencies.keys.toList(),
-            selected = toCurrency,
-            onSelectedChange = { toCurrency = it }
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        BasicTextField(
-            value = amount,
-            onValueChange = { amount = it },
-            modifier = Modifier.fillMaxWidth(),
-            decorationBox = { innerTextField ->
-                Box(modifier = Modifier.padding(8.dp)) {
-                    if (amount.text.isEmpty()) Text(stringResource(R.string.enter_amount))
-                    innerTextField()
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+    ) {
+        item {
+            DropdownMenuSelector(
+                items = currencies.toList(),
+                selected = currencies[fromCurrency] ?: "",
+                onSelectedChange = { fromCurrency = it }
+            )
+        }
+        item {
+            BasicTextField(
+                value = amount,
+                onValueChange = { amount = it },
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                ),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                    .border(
+                        1.dp,
+                        MaterialTheme.colorScheme.primaryContainer,
+                        RoundedCornerShape(16.dp)
+                    )
+                    .padding(4.dp),
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxSize()
+                    ) {
+                        if (amount.text.isEmpty()) Text(
+                            "0",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            ),
+                            modifier = Modifier.fillMaxSize()
+                        )
+                        innerTextField()
+                    }
                 }
+            )
+        }
+        item {
+            DropdownMenuSelector(
+                items = currencies.toList(),
+                selected = currencies[toCurrency] ?:"",
+                onSelectedChange = { toCurrency = it }
+            )
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .border(
+                        1.dp,
+                        MaterialTheme.colorScheme.primaryContainer,
+                        RoundedCornerShape(16.dp)
+                    )
+                    .padding(4.dp)
+            ) {
+                Text(
+                    convertedAmount?.let { decimalFormat.format(it) } ?: "0",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    ),
+                    modifier = Modifier.padding(8.dp).fillMaxSize()
+                )
             }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("${stringResource(R.string.converted_amount)}: ${convertedAmount?.toString() ?: ""}")
+        }
     }
 }
